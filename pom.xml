@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.bdqn</groupId>
+    <artifactId>scdemo</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>register</module>
+        <module>client</module>
+        <module>gateway</module>
+        <module>feign</module>
+    </modules>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.1.8.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <!--项目中多个模块间公共依赖的版本号、scope的控制；
+    一个项目有很多模块，每个模块都会用到一些公共的依赖；
+    这些公共的依赖若交由各个模块独自管理，若每个模块同一个依赖的版本号不一致，会给项目的整；
+    该标签通常适用于多模块环境下定义一个top module来专门管理公共依赖的情况下-->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>Greenwich.RELEASE</version>
+                <type>pom</type>
+               <!-- 这个是maven2.0.9版本后出的属性，import只能在dependencyManagement的中使用，
+                能解决maven单继承问题，import依赖关系实际上并不参与限制依赖关系的传递性。-->
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>

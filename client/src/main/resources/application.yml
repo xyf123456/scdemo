@@ -1,0 +1,10 @@
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/ #指定注册中心的地址。
+spring:
+  application:
+    name: eurekaclient #服务的名字
+server:
+#  port: 8762
+  port: 8763

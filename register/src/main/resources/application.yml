@@ -1,0 +1,28 @@
+server:
+  port: 8761
+spring:
+  application:
+    name: regiter
+  profiles:
+    active: dev
+  cloud:
+    inetutils:
+      preferred-networks: 127.0.0.1 #指定IP:是指倾向于使用的IP地址，接收一个正则表达式数组，用于选择Spring Cloud应用使用的本机的IP地址。
+#      ignored-interfaces[0]: eth0 #忽略eth0, 支持正则表达式,#需要过滤掉的网卡
+    client:
+      ip-address: 127.0.0.1
+eureka:
+  server:
+    peer-node-read-timeout-ms: 3000 #微服务节点连接超时时间。
+    enable-self-preservation: false #	 是否开启自我保护，关闭注册中心的保护机制,在开启自我保护的情况下，注册中心在丢失客户端时，会进入自动保护模式，注册中心并不会将该服务从注册中心删除掉。这里我设置为 false，即关闭自我保护。根据我的经验，如果设置为 true，在负载均衡条件下，一个服务挂掉后，注册中心并没有删掉该服务，会导致客户端请求的时候可能会请求到该服务，导致系统无法访问，因此我推荐将这个属性设置为 false。
+  instance:
+    prefer-ip-address: true #是否以 IP 注册到注册中心，Eureka 默认是以 hostname 来注册的，如果设置为 false，可以 eurekaserver 管理界面显示的地址为本机 hostname,我们也可以通过 eureka.instance.hostname 来修改 hostname 的值。
+    instance-id: ${spring.cloud.client.ip-address}:${server.port} #注册限制的实例 ID，即上图显示的 127.0.0.1:8761
+#    hostname: ${spring.cloud.client.ip-address}:${server.port}
+  client:
+    register-with-eureka: false #启动服务注册,#Eureka是为注册中心,是否需要将自己注册到注册中心上(默认为true),本次位单机部署,不需要设置为true;但是注册中心集群时候必须为true;因为集群时，其他Eureka需要从此Eureka中的节点上获取数据；
+    fetch-registry: false #是否读取注册  #Erueka是为注册中心，不需要检索服务信息;(表示是否从Eureka Server获取注册信息，默认为true。 如果这是一个单点的 Eureka Server，不需要同步其他节点的数据，可以设为false)
+    healthcheck:
+      enabled: true
+    service-url:
+      defaultZone: http://127.0.0.1:8761/eureka/ #注册中心默认地址。
