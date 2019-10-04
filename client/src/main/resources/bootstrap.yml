@@ -1,0 +1,18 @@
+spring:
+  cloud:
+    config:
+      name: eurekaclient #应用的名称
+      label: master #应用分支
+      discovery:
+        enabled: true #可以被发现
+        service-id: config #服务的id，即配置中心服务的id
+      profile: dev #应用配置
+  rabbitmq:
+      host:  127.0.0.1
+      port: 5672
+      username: guest
+      password: guest
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/ #指定注册中心的地址。

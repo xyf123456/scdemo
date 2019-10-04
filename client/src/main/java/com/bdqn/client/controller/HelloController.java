@@ -39,6 +39,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 //手动配置刷新：实现不同的服务提供者之间的切换
 @RestController
+@RefreshScope
 public class HelloController {
 
     @Value("${server.port}")
